@@ -35,9 +35,9 @@ fn main() {
             let mut term = termios::tcgetattr(0).unwrap();
             // Unset canonical mode, so we get characters immediately
             term.local_flags.remove(termios::LocalFlags::ICANON);
-// Don't generate signals on Ctrl-C and friends
+            // Don't generate signals on Ctrl-C and friends
             term.local_flags.remove(termios::LocalFlags::ISIG);
-// Disable local echo
+            // Disable local echo
             term.local_flags.remove(termios::LocalFlags::ECHO);
             termios::tcsetattr(0, termios::SetArg::TCSADRAIN, &term).unwrap();
             for byte in std::io::stdin().bytes() {
