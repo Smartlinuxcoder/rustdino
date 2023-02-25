@@ -65,8 +65,8 @@ fn main() {
          thread::sleep(refreshdelay);
          refreshscreen(&cactuses, score, &mut screen, cactus, dino, dinoy);
          if screen == gameover {
-//            println!("{}game over {}","\x1B[2J\x1B[1;1H", score);
-            println!("game over {}", score);
+            println!("{}game over {}","\x1B[2J\x1B[1;1H", score);
+//            println!("game over {}", score);
             break
          }
          score=score+1;
@@ -140,8 +140,8 @@ fn refreshscreen(cactuses:  &Vec<bool>, score: usize, screen:&mut String, cactus
         index=index+1;
     }
     screen.push_str(&score.to_string());
-//    println!("{} {}","\x1B[2J\x1B[1;1H", screen);
-    println!("{}", screen);
+    println!("{} {}","\x1B[2J\x1B[1;1H", screen);
+//    println!("{}", screen);
     if cactuses[1] && dinoy == 0 {
         *screen = String::from("gameovermessage");
 
