@@ -31,7 +31,7 @@ fn main() {
                 if byte == 3 {
                     break;
                 } else {
-                    sender.send(()).unwrap();sender.send(()).unwrap();
+                    sender.send(()).unwrap();sender.send(()).unwrap();// send message to main thread
                 }
             }
         }
