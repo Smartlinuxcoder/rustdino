@@ -1,8 +1,8 @@
 use rand::Rng;
 use std::time::Instant;
 use std::{thread, time};
-use std::sync::mpsc::{channel, Sender};
-use std::time::Duration;
+use std::sync::mpsc::{channel};
+//use std::time::Duration;
 use std::io::Read;
 
 
@@ -18,12 +18,12 @@ fn main() {
      let mut cactuspos: Vec<i32> = vec![];
      let mut cactuses: Vec<bool> = vec![];
      let mut screen = String::new();
-     let mut now = start.elapsed().as_secs();
+     let mut now:u64;
      let mut delay: u64 = 0;
      let mut rng = rand::thread_rng();
      let refreshdelay = time::Duration::from_millis(200);
      let gameover = String::from("gameovermessage");
-     println!("Hello, world!");
+//     println!("Hello, world!");
 
      let handle = thread::spawn({
         let sender = sender.clone();
@@ -46,10 +46,8 @@ fn main() {
                 if dinoy == 0 {
                     dinoy = 1;
                 }
-                println!("YOU CLICKED {}", dinoy);
             },
             Err(_) => {
-                println!("Waiting for ohio invasion");
             }
         }
         
@@ -57,7 +55,6 @@ fn main() {
              lenght - <usize as TryInto<i32>>::try_into(score.to_string().len()).unwrap(),
              &mut cactuspos,
              &mut cactuses,
-             score,
              &mut dinoy
          );
          now = start.elapsed().as_secs();
@@ -83,7 +80,7 @@ fn main() {
      //    println!("{:?}", cactuspos);
  }
 
- fn gametick(lenghtdisplay: i32, cactuspos: &mut Vec<i32>, cactuses: &mut Vec<bool>, score:usize, dinoy:&mut i32) {
+ fn gametick(lenghtdisplay: i32, cactuspos: &mut Vec<i32>, cactuses: &mut Vec<bool>, dinoy:&mut i32) {
      //    println!("tick!");
      cactuses.clear();
      let mut index: usize = 1;
@@ -124,7 +121,7 @@ fn main() {
         *dinoy = 0;
      }
 
-     println!("{}", dinoy);
+//     println!("{}", dinoy);
      //    cactuses.push('{score}');
      //    cactuses.push('{score}');
      //println!("{:?}", cactuses);
