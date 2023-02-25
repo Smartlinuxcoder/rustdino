@@ -1,6 +1,6 @@
 use rand::Rng;
 use std::sync::mpsc::channel;
-use std::time::Instant;
+//use std::time::Instant;
 use std::{thread, time};
 //use std::time::Duration;
 use std::io::Read;
@@ -11,7 +11,7 @@ use nix::sys::termios;
 fn main() {
     //     let (sender, receiver) = channel::<u8>();
     let (sender, receiver) = channel();
-    let start = Instant::now();
+//    let start = Instant::now();
     let lenght: i32 = 40;
     let mut score: usize = 1;
     let dino = 'è';
@@ -20,10 +20,10 @@ fn main() {
     let mut cactuspos: Vec<i32> = vec![];
     let mut cactuses: Vec<bool> = vec![];
     let mut screen = String::new();
-    let mut now: u64;
-    let mut delay: u64 = 0;
+    //    let mut now: u64;
+    let refreshdelay = 200;
     let mut rng = rand::thread_rng();
-    let refreshdelay = time::Duration::from_millis(200);
+    let mut delay: u64 = rng.gen_range(1100..2500)/refreshdelay;
     let gameover = String::from("gameovermessage");
     //     println!("Hello, world!");
 
@@ -69,12 +69,13 @@ fn main() {
             &mut cactuses,
             &mut dinoy,
         );
-        now = start.elapsed().as_secs();
-        if delay - now == 0 {
-            delay = delay + rng.gen_range(2..5);
+//        now = start.elapsed().as_secs();
+
+        if delay == 0 {
             spawncactus(&mut cactuspos, lenght);
+            delay = rng.gen_range(1100..2500)/refreshdelay;
         }
-        thread::sleep(refreshdelay);
+        thread::sleep(time::Duration::from_millis(refreshdelay));
         refreshscreen(&cactuses, score, &mut screen, cactus, dino, dinoy);
         if screen == gameover {
             println!(
@@ -85,6 +86,7 @@ fn main() {
             break;
         }
         score = score + 1;
+        delay = delay - 1;
         //         println!("{}",getch::getch());
     }
     handle.join().unwrap();
