@@ -65,7 +65,7 @@ fn main() {
          thread::sleep(refreshdelay);
          refreshscreen(&cactuses, score, &mut screen, cactus, dino, dinoy);
          if screen == gameover {
-            println!("{}game over {}","\x1B[2J\x1B[1;1H", score);
+            println!("{}game over (are  you really that bad) {}","\x1B[2J\x1B[1;1H", score);
 //            println!("game over {}", score);
             break
          }
