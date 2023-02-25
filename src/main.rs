@@ -117,6 +117,10 @@ fn main() {
      } else if *dinoy == 2 {
         *dinoy =3;
      } else if *dinoy == 3 {
+        *dinoy = 4;
+     } else if *dinoy == 4 {
+        *dinoy = 5;
+     } else if *dinoy == 5 {
         *dinoy = 0;
      }
 
