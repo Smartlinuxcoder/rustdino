@@ -23,8 +23,8 @@ fn main() {
     let mut cactuspos: Vec<i32> = vec![];
     let mut cactuses: Vec<bool> = vec![];
     let mut screen = String::new();
-    //    let mut now: u64;
-    let refreshdelay = 200;
+    let mut refreshdelay = 200;
+    let mut nextspeedupgrade:usize = 100;
     let mut rng = rand::thread_rng();
     let mut delay: u64 = rng.gen_range(1100..2500)/refreshdelay;
     let gameover = String::from("gameovermessage");
@@ -90,7 +90,11 @@ fn main() {
         }
         score = score + 1;
         delay = delay - 1;
-        //         println!("{}",getch::getch());
+        if nextspeedupgrade <= score {
+            refreshdelay = refreshdelay - 5;
+            nextspeedupgrade = nextspeedupgrade +100;
+        }
+                // println!("now:{} next at:{}",refreshdelay, nextspeedupgrade);
     }
     handle.join().unwrap();
 }
