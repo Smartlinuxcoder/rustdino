@@ -145,7 +145,7 @@ fn gametick(
         *dinoy = 0;
     }
 
-         println!("{}", dinoy);
+    //     println!("{}", dinoy);
     //    cactuses.push('{score}');
     //    cactuses.push('{score}');
     //println!("{:?}", cactuses);
@@ -172,8 +172,33 @@ fn refreshscreen(
         index = index + 1;
     }
     screen.push_str(&score.to_string());
-    println!("{} {}", "\x1B[2J\x1B[1;1H", screen);
-    //    println!("{}", screen);
+    if dinoy == 1 {
+        println!("{}", "\x1B[2J\x1B[1;1H");
+        println!("");
+        println!("");
+        println!(" {}", dinochar);
+    } else if dinoy == 2 {
+        println!("{}", "\x1B[2J\x1B[1;1H");
+        println!("");
+        println!(" {}", dinochar);
+        println!("");
+    } else if dinoy == 3 {
+        println!("{}", "\x1B[2J\x1B[1;1H");
+        println!(" {}", dinochar);
+        println!("");
+        println!("");
+    } else if dinoy == 4 {
+        println!("{}", "\x1B[2J\x1B[1;1H");
+        println!("");
+        println!(" {}", dinochar);
+        println!("");
+    } else {
+        println!("\x1B[2J\x1B[1;1H");
+        println!("");
+        println!("");
+        println!("");
+    }
+    println!("{}", screen);
     if cactuses[1] && dinoy == 0 {
         *screen = String::from("gameovermessage");
     }
