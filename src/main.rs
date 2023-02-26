@@ -7,12 +7,15 @@ use std::io::Read;
 
 extern crate nix;
 use nix::sys::termios;
-
+use term_size;
 fn main() {
     //     let (sender, receiver) = channel::<u8>();
     let (sender, receiver) = channel();
-//    let start = Instant::now();
-    let lenght: i32 = 40;
+    //    let start = Instant::now();
+    let lenght = match term_size::dimensions() {
+        Some((width, _)) => width-1,
+        None => 40,
+    };
     let mut score: usize = 1;
     let dino = 'è';
     let mut dinoy: i32 = 0; // 0=onground, 1 = first jump frame, 2 = second jump frame, 3 third jump frame
@@ -64,7 +67,7 @@ fn main() {
         }
 
         gametick(
-            lenght - <usize as TryInto<i32>>::try_into(score.to_string().len()).unwrap(),
+            lenght - score.to_string().len(),
             &mut cactuspos,
             &mut cactuses,
             &mut dinoy,
@@ -92,14 +95,14 @@ fn main() {
     handle.join().unwrap();
 }
 
-fn spawncactus(cactuspos: &mut Vec<i32>, lenghtdisplay: i32) {
+fn spawncactus(cactuspos: &mut Vec<i32>, lenghtdisplay: usize) {
     //    println!("summoning cacti....");
-    cactuspos.insert(cactuspos.len(), lenghtdisplay);
+    cactuspos.insert(cactuspos.len(), lenghtdisplay.try_into().unwrap());
     //    println!("{:?}", cactuspos);
 }
 
 fn gametick(
-    lenghtdisplay: i32,
+    lenghtdisplay: usize,
     cactuspos: &mut Vec<i32>,
     cactuses: &mut Vec<bool>,
     dinoy: &mut i32,

@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 nix = "0.26.2"
 rand = "0.8.5"
+term_size = "0.3.2"
