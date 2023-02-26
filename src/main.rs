@@ -145,7 +145,7 @@ fn gametick(
         *dinoy = 0;
     }
 
-         println!("{}", dinoy);
+//         println!("{}", dinoy);
     //    cactuses.push('{score}');
     //    cactuses.push('{score}');
     //println!("{:?}", cactuses);
