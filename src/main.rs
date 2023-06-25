@@ -1,29 +1,25 @@
 use rand::Rng;
 use std::sync::mpsc::channel;
-//use std::time::Instant;
 use std::{thread, time};
-//use std::time::Duration;
 use std::io::Read;
 
 extern crate nix;
 use nix::sys::termios;
 use term_size;
 fn main() {
-    //     let (sender, receiver) = channel::<u8>();
     let (sender, receiver) = channel();
-    //    let start = Instant::now();
     let lenght = match term_size::dimensions() {
         Some((width, _)) => width-1,
         None => 40,
     };
     let mut score: usize = 1;
     let dino = 'è';
-    let mut dinoy: i32 = 0; // 0=onground, 1 = first jump frame, 2 = second jump frame, 3 third jump frame
+    let mut dinoy: i32 = 0; // 0=onground, 1,2=going up, 3=max height, 4=falling down
     let cactus = 'à';
     let mut cactuspos: Vec<i32> = vec![];
     let mut cactuses: Vec<bool> = vec![];
-    let mut screen = String::new();
-    let mut refreshdelay = 200;
+    let mut screen = String::new();//contains the floor 
+    let mut refreshdelay = 200;//delay between ticks
     let mut nextspeedupgrade:usize = 100;
     let mut rng = rand::thread_rng();
     let mut delay: u64 = rng.gen_range(1100..2500)/refreshdelay;
@@ -72,7 +68,6 @@ fn main() {
             &mut cactuses,
             &mut dinoy,
         );
-//        now = start.elapsed().as_secs();
 
         if delay == 0 {
             spawncactus(&mut cactuspos, lenght);
@@ -85,7 +80,6 @@ fn main() {
                 "{}game over (are  you really that bad) {}",
                 "\x1B[2J\x1B[1;1H", score
             );
-            //            println!("game over {}", score);
             break;
         }
         score = score + 1;
@@ -149,10 +143,6 @@ fn gametick(
         *dinoy = 0;
     }
 
-    //     println!("{}", dinoy);
-    //    cactuses.push('{score}');
-    //    cactuses.push('{score}');
-    //println!("{:?}", cactuses);
 }
 
 fn refreshscreen(
@@ -204,7 +194,6 @@ fn refreshscreen(
     }
     println!("{}", screen);
     if cactuses[1] && dinoy == 0 {
-        *screen = String::from("gameovermessage");
+           *screen = String::from("gameovermessage");
     }
-    //    println!("{}", screen.chars().count());
 }
