@@ -105,7 +105,6 @@ fn gametick(
     cactuses: &mut Vec<bool>,
     dinoy: &mut i32,
 ) {
-    //    println!("tick!");
     cactuses.clear();
     let mut index: usize = 1;
     let mut indexcacti = 0;
